@@ -20,8 +20,10 @@ public class ServerWorker extends Thread{
 		
 		//Reader vorbereiten
 		BufferedReader bReader = null;
+		BufferedWriter writer = null;
 		try {
 			bReader = new BufferedReader(new InputStreamReader(this.sock.getInputStream()));
+			writer = new BufferedWriter(new OutputStreamWriter(this.sock.getOutputStream()));
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -42,7 +44,6 @@ public class ServerWorker extends Thread{
 					//Statistik updaten
 					StatisticData.update(clientMessage);
 					System.out.println("Empfangen: " + clientMessage + " von: " + sock.getInetAddress() + ":" + sock.getPort());
-					BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(this.sock.getOutputStream()));
 					
 					//Antwort senden
 					writer.write("Länge: " + clientMessage.length() + ", (min: " + StatisticData.getMinLength() + ", max: " + 

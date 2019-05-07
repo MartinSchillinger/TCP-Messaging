@@ -29,6 +29,7 @@ public class Client extends Thread{
 	    try {
 			client = new Socket(server,port);
 			writer = new BufferedWriter(new OutputStreamWriter(client.getOutputStream()));
+			reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
 		} catch (IOException e1) {
 			System.out.println("Socket konnte nicht erstellt werden");
 			e1.printStackTrace();
@@ -54,9 +55,8 @@ public class Client extends Thread{
 	    		// Buffer füllen und senden
 	    		writer.write(input);
 	    		writer.newLine();
-	    		writer.flush();	      
-	      
-	    		reader = new BufferedReader(new InputStreamReader(client.getInputStream()));
+	    		writer.flush();	      	      
+	    		
 	    		System.out.println(reader.readLine());
 	    		
 		    } catch (IOException e) {
